@@ -67,7 +67,7 @@ def render_public_lookup_page() -> str:
     <article class="card large"><p class="kicker">Boundary</p><h2>No official procurement action</h2><div class="result warning"><p>CivicProcure does not evaluate vendors, award contracts, make award decisions, provide legal advice, call live LLMs, use live vendor portals, submit procurements, or replace the procurement system of record.</p></div></article>
   </section>
 </main>
-<footer><p>CivicProcure is part of the Apache 2.0 CivicSuite open-source municipal AI project.</p></footer>
+<footer><p>CivicProcure is part of the AGPL-3.0 CivicSuite open-source municipal AI project.</p></footer>
 </body>
 </html>
 """
