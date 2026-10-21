@@ -1,6 +1,6 @@
 ---
 name: Bug report
-about: Report a CivicProcure defect
+about: Report a Townlight Procurement defect
 title: "[Bug]: "
 labels: bug
 assignees: ""
@@ -12,12 +12,12 @@ Describe the issue.
 
 ## Expected behavior
 
-What should CivicProcure have done instead?
+What should Townlight Procurement have done instead?
 
 ## Environment
 
-- CivicProcure version:
-- CivicCore version:
+- Townlight Procurement version:
+- Townlight Core version:
 - Operating system:
 
 ## Evidence

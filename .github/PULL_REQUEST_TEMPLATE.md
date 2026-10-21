@@ -1,6 +1,6 @@
 ## Summary
 
-Describe the CivicProcure change in one or two sentences.
+Describe the Townlight Procurement change in one or two sentences.
 
 ## Scope
 
@@ -23,5 +23,5 @@ Paste actual command output or screenshots for every checked item:
 - [ ] This PR does not claim official vendor evaluation or award authority.
 - [ ] This PR does not provide legal advice.
 - [ ] This PR keeps procurement submissions and system-of-record updates out of scope unless explicitly shipped.
-- [ ] This PR does not import CivicCore placeholder packages.
+- [ ] This PR does not import Townlight Core placeholder packages.
 

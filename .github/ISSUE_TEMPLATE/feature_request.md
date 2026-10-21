@@ -1,6 +1,6 @@
 ---
 name: Feature request
-about: Suggest a CivicProcure capability
+about: Suggest a Townlight Procurement capability
 title: "[Feature]: "
 labels: enhancement
 assignees: ""

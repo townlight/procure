@@ -26,7 +26,7 @@ def test_adversarial_mock_rejects_spoofed_award_and_missing_context() -> None:
     assert "Rejected procurement context without trusted staff or service role." in result.findings
     assert "Rejected attempted official vendor evaluation in integration context." in result.findings
     assert "Rejected attempted award decision in integration context." in result.findings
-    assert "does not call live CivicClerk" in result.boundary
+    assert "does not call live Townlight Meetings" in result.boundary
 
 
 def test_integration_mock_api_accepts_complete_staff_context_for_review() -> None:
@@ -63,7 +63,7 @@ def test_integration_mock_api_blocks_stale_or_partial_context() -> None:
     assert response.status_code == 200
     payload = response.json()
     assert payload["status"] == "blocked-for-staff-review"
-    assert "Missing CivicClerk context ID" in " ".join(payload["findings"])
+    assert "Missing Townlight Meetings context ID" in " ".join(payload["findings"])
     assert "Stale procurement context" in " ".join(payload["findings"])
 
 
@@ -83,6 +83,6 @@ def test_procurement_review_context_carries_clerk_and_contract_references() -> N
     payload = response.json()
     assert payload["solicitation_id"] == "rfp-2026-001"
     assert payload["review_required"] is True
-    assert "CivicClerk context: agenda-item-456" in payload["citations"]
-    assert "CivicContracts context: contract-template-789" in payload["citations"]
+    assert "Townlight Meetings context: agenda-item-456" in payload["citations"]
+    assert "Townlight Contracts context: contract-template-789" in payload["citations"]
     assert "not an official vendor evaluation" in payload["boundary"]

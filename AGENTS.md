@@ -1,18 +1,20 @@
-# CivicProcure Agent Contract
+<a id="civicprocure-agent-contract"></a>
+
+# Townlight Procurement Agent Contract
 
 ## Source of Truth
 
-- Upstream suite spec: `CivicSuite/civicsuite/docs/CivicSuiteUnifiedSpec.md`, especially the CivicProcure catalog entry and suite-wide non-negotiables.
-- CivicProcure supports RFP drafting, proposal comparison, exception extraction, scoring summaries, board memo inputs, and award-packet checklists.
+- Upstream suite spec: `townlight/townlight/docs/CivicSuiteUnifiedSpec.md`, especially the Townlight Procurement catalog entry and suite-wide non-negotiables.
+- Townlight Procurement supports RFP drafting, proposal comparison, exception extraction, scoring summaries, board memo inputs, and award-packet checklists.
 - Staff own every decision.
 
 ## Hard Boundaries
 
-- CivicProcure never evaluates vendors, awards contracts, submits procurements, provides legal advice, or updates a procurement system of record.
-- CivicProcure v0.2.0 must not call live LLMs or live vendor portals.
+- Townlight Procurement never evaluates vendors, awards contracts, submits procurements, provides legal advice, or updates a procurement system of record.
+- Townlight Procurement v0.2.0 must not call live LLMs or live vendor portals.
 - Proposal comparisons, exception flags, scoring summaries, and award packets must be marked staff-review-required where applicable.
-- CivicProcure depends on CivicCore; CivicCore must never depend on CivicProcure.
-- CivicProcure may reference CivicClerk, CivicContracts, and CivicRecords concepts only through released contracts, context IDs, or deterministic sample data in this recovery release.
+- Townlight Procurement depends on Townlight Core; Townlight Core must never depend on Townlight Procurement.
+- Townlight Procurement may reference Townlight Meetings, Townlight Contracts, and Townlight Records concepts only through released contracts, context IDs, or deterministic sample data in this recovery release.
 
 ## Verification
 

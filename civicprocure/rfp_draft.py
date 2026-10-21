@@ -1,4 +1,4 @@
-"""Deterministic RFP drafting helpers for CivicProcure v0.2.0."""
+"""Deterministic RFP drafting helpers for Townlight Procurement v0.2.0."""
 
 from __future__ import annotations
 
@@ -6,7 +6,7 @@ from dataclasses import dataclass
 
 
 DISCLAIMER = (
-    "CivicProcure provides procurement-support drafts only. Staff own every decision; "
+    "Townlight Procurement provides procurement-support drafts only. Staff own every decision; "
     "the module does not evaluate vendors, award contracts, provide legal advice, "
     "submit procurements, or replace the procurement system of record."
 )
