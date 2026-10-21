@@ -1,4 +1,4 @@
-"""FastAPI runtime foundation for CivicProcure."""
+"""FastAPI runtime foundation for Townlight Procurement."""
 
 import os
 
@@ -26,9 +26,9 @@ from civicprocure.persistence import (
 
 
 app = FastAPI(
-    title="CivicProcure",
+    title='Townlight Procurement',
     version=__version__,
-    description="Procurement RFP drafting, proposal comparison, exception extraction, scoring summaries, board memo, and award-packet support for CivicSuite.",
+    description='Procurement RFP drafting, proposal comparison, exception extraction, scoring summaries, board memo, and award-packet support for Townlight.',
 )
 
 _workpaper_repository: ProcureWorkpaperRepository | None = None
@@ -107,7 +107,7 @@ def root() -> dict[str, str]:
         "version": __version__,
         "status": "procurement support foundation",
         "message": (
-            "CivicProcure package, API foundation, sample RFP drafting, proposal comparison, "
+            "Townlight Procurement package, API foundation, sample RFP drafting, proposal comparison, "
             "exception extraction helper, scoring summary helper, award-packet checklist, "
             "optional database-backed RFP/award workpapers, staff review queues, review-required "
             "CivicClerk/CivicContracts context packets, adversarial local integration mocks, and public UI foundation are online; "
@@ -170,7 +170,7 @@ def get_rfp_draft(draft_id: str) -> dict[str, object]:
         raise HTTPException(
             status_code=503,
             detail={
-                "message": "CivicProcure workpaper persistence is not configured.",
+                "message": "Townlight Procurement workpaper persistence is not configured.",
                 "fix": "Set CIVICPROCURE_WORKPAPER_DB_URL to retrieve persisted RFP drafts.",
             },
         )
@@ -245,7 +245,7 @@ def get_award_packet(packet_id: str) -> dict[str, object]:
         raise HTTPException(
             status_code=503,
             detail={
-                "message": "CivicProcure workpaper persistence is not configured.",
+                "message": "Townlight Procurement workpaper persistence is not configured.",
                 "fix": "Set CIVICPROCURE_WORKPAPER_DB_URL to retrieve persisted award-packet records.",
             },
         )
@@ -271,9 +271,9 @@ def procurement_review_context(request: ProcurementContextRequest) -> dict[str, 
     if request.solicitation_context_id:
         citations.append(f"Solicitation context: {request.solicitation_context_id}")
     if request.clerk_context_id:
-        citations.append(f"CivicClerk context: {request.clerk_context_id}")
+        citations.append(f"Townlight Meetings context: {request.clerk_context_id}")
     if request.contract_context_id:
-        citations.append(f"CivicContracts context: {request.contract_context_id}")
+        citations.append(f"Townlight Contracts context: {request.contract_context_id}")
     return {
         "solicitation_id": request.solicitation_id.strip() or "unassigned-solicitation",
         "procurement_title": request.procurement_title.strip() or "Untitled procurement",
@@ -285,7 +285,7 @@ def procurement_review_context(request: ProcurementContextRequest) -> dict[str, 
         "recommended_owner": rfp.recommended_owner,
         "review_required": True,
         "boundary": (
-            "CivicProcure provides procurement review context only; it is not an official vendor "
+            "Townlight Procurement provides procurement review context only; it is not an official vendor "
             "evaluation, award decision, legal opinion, procurement submission, live vendor-portal "
             "result, or procurement system-of-record action."
         ),
@@ -357,7 +357,7 @@ def update_staff_review(
         raise HTTPException(
             status_code=404,
             detail={
-                "message": "CivicProcure staff review item was not found.",
+                "message": "Townlight Procurement staff review item was not found.",
                 "fix": "List staff reviews and retry with an existing review_id.",
             },
         )
@@ -420,7 +420,7 @@ def _require_persistence_configured() -> None:
         raise HTTPException(
             status_code=503,
             detail={
-                "message": "CivicProcure staff review persistence is not configured.",
+                "message": "Townlight Procurement staff review persistence is not configured.",
                 "fix": "Set CIVICPROCURE_WORKPAPER_DB_URL before using staff review queue routes.",
             },
         )

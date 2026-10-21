@@ -1,18 +1,20 @@
-# CivicProcure v0.2.0 Release Gate
+<a id="civicprocure-v020-release-gate"></a>
+
+# Townlight Procurement v0.2.0 Release Gate
 
 Date: 2026-05-09
 
 ## Scope
 
-CivicProcure v0.2.0 productization for procurement support, staff review queues, review-required CivicClerk/CivicContracts context packets, adversarial local integration mocks, CivicCore v1.0.0 release-wheel alignment, docs, tests, browser QA, and release artifacts.
+Townlight Procurement v0.2.0 productization for procurement support, staff review queues, review-required CivicClerk/CivicContracts context packets, adversarial local integration mocks, Townlight Core v1.0.0 release-wheel alignment, docs, tests, browser QA, and release artifacts.
 
 ## Internal Careful-Work Evidence
 
-1. Read callers/consumers: reviewed FastAPI routes, persistence repository, tests, release scripts, public UI, README/manual, docs landing page, CivicSuite unified spec, and previous v1 module patterns as read-only references.
+1. Read callers/consumers: reviewed FastAPI routes, persistence repository, tests, release scripts, public UI, README/manual, docs landing page, Townlight unified spec, and previous v1 module patterns as read-only references.
 2. Traced runtime context: verified stateless behavior when `CIVICPROCURE_WORKPAPER_DB_URL` is unset and staff-gated behavior when `CIVICPROCURE_WORKPAPER_DB_URL` plus `CIVICPROCURE_STAFF_API_KEY` are set.
-3. Pattern search: searched existing v1 modules for staff queue, integration mock, CivicCore wheel, and release-gate patterns.
+3. Pattern search: searched existing v1 modules for staff queue, integration mock, Townlight Core wheel, and release-gate patterns.
 4. Data contract changed: added staff review queue records, review summaries, context packet fields, mock validation payloads, and `staff_review_id` response fields on persisted RFP drafts and award packets.
-5. Blast radius: limited to CivicProcure package, tests, docs, release scripts, CI workflow, and generated QA/build artifacts.
+5. Blast radius: limited to Townlight Procurement package, tests, docs, release scripts, CI workflow, and generated QA/build artifacts.
 6. Re-read changed files: diff and test passes checked route, persistence, docs, and release-script contracts before commit.
 7. Code/data/render path: `POST /api/v1/civicprocure/rfps/draft` creates a deterministic RFP outline; with persistence configured it creates a staff queue item; staff-only headers allow list/update/summary; browser UI and docs describe the workflow and boundaries.
 8. State consumption: queue records are persisted, listed, summarized, updated, and asserted through tests; context/mock payloads are exposed through API routes and tests.
@@ -41,4 +43,4 @@ Evidence is recorded in `docs/browser-qa-civicprocure-v1.0.0-summary.md` with de
 
 - Blocker: none.
 - Critical: none.
-- Residual risk: installer integration is still required before the module may be called fully v1.0.0 complete under the CivicSuite active pipeline rule. That will be handled as the required CivicSuite installer exception after this repo change is pushed and CI is green.
+- Residual risk: installer integration is still required before the module may be called fully v1.0.0 complete under the Townlight active pipeline rule. That will be handled as the required Townlight installer exception after this repo change is pushed and CI is green.

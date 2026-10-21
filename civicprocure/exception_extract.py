@@ -1,4 +1,4 @@
-"""Proposal exception extraction helpers for CivicProcure v0.2.0."""
+"""Proposal exception extraction helpers for Townlight Procurement v0.2.0."""
 
 from __future__ import annotations
 

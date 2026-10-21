@@ -1,6 +1,6 @@
 # Contributing
 
-Thank you for helping CivicProcure become useful municipal software.
+Thank you for helping Townlight Procurement become useful municipal software.
 
 ## Development Loop
 
@@ -11,7 +11,7 @@ Thank you for helping CivicProcure become useful municipal software.
 
 ## Boundaries
 
-- CivicProcure gives procurement-support drafts, not official vendor evaluations, awards, submissions, legal advice, or system-of-record updates.
+- Townlight Procurement gives procurement-support drafts, not official vendor evaluations, awards, submissions, legal advice, or system-of-record updates.
 - Do not present generated proposal comparisons, exception flags, scoring summaries, or award packets as decision-ready without staff review.
-- Do not import CivicCore placeholder packages.
+- Do not import Townlight Core placeholder packages.
 - Do not claim planned behavior is shipped.

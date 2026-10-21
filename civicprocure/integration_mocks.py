@@ -1,4 +1,4 @@
-"""Adversarial local integration contracts for CivicProcure."""
+"""Adversarial local integration contracts for Townlight Procurement."""
 
 from __future__ import annotations
 
@@ -26,7 +26,7 @@ def validate_procurement_context_mocks(payload: dict[str, Any]) -> IntegrationMo
     if not payload.get("solicitation_context_id"):
         findings.append("Missing solicitation context ID; preserve the procurement file before review.")
     if not payload.get("clerk_context_id"):
-        findings.append("Missing CivicClerk context ID; cite board or agenda context before award packets.")
+        findings.append("Missing Townlight Meetings context ID; cite board or agenda context before award packets.")
     if payload.get("official_vendor_evaluation") is True:
         findings.append("Rejected attempted official vendor evaluation in integration context.")
     if payload.get("award_decision") is True:
@@ -47,8 +47,8 @@ def validate_procurement_context_mocks(payload: dict[str, Any]) -> IntegrationMo
         review_required=True,
         findings=tuple(findings),
         boundary=(
-            "CivicProcure validates local integration context only; it does not call live "
-            "CivicClerk, CivicContracts, vendor portal, LLM, legal, award, submission, "
+            "Townlight Procurement validates local integration context only; it does not call live "
+            "Townlight Meetings, Townlight Contracts, vendor portal, LLM, legal, award, submission, "
             "or procurement system-of-record services in this recovery release."
         ),
     )

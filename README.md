@@ -1,10 +1,14 @@
-# CivicProcure
+<a id="civicprocure"></a>
 
-CivicProcure is the CivicSuite module for procurement RFP drafting, proposal comparison, exception extraction, scoring summaries, board memo inputs, staff review queues, review-required CivicClerk/CivicContracts context packets, adversarial local integration mocks, and award-packet checklists.
+# Townlight Procurement
 
-Current state: **v0.2.0 procurement support and staff review queue runtime**. This repo ships a FastAPI package aligned to the published CivicCore v1.0.0 release wheel, health/root endpoints, documentation gates, deterministic and database-backed RFP drafting, award-packet workpapers, staff-only review queue workflows, review-required CivicClerk/CivicContracts procurement context packets, adversarial local integration mocks, proposal comparison scaffolds, exception extraction, scoring summary helper, award-packet checklist, and accessible public sample UI at `/civicprocure`. It does **not** ship live vendor portals, official vendor evaluation decisions, legal advice, live LLM calls, e-procurement submission portals, award decisions, or procurement system-of-record integrations.
+Townlight Procurement is the Townlight module for procurement RFP drafting, proposal comparison, exception extraction, scoring summaries, board memo inputs, staff review queues, review-required CivicClerk/CivicContracts context packets, adversarial local integration mocks, and award-packet checklists.
 
-## What CivicProcure Does
+Current state: **v0.2.0 procurement support and staff review queue runtime**. This repo ships a FastAPI package aligned to the published Townlight Core v1.0.0 release wheel, health/root endpoints, documentation gates, deterministic and database-backed RFP drafting, award-packet workpapers, staff-only review queue workflows, review-required CivicClerk/CivicContracts procurement context packets, adversarial local integration mocks, proposal comparison scaffolds, exception extraction, scoring summary helper, award-packet checklist, and accessible public sample UI at `/civicprocure`. It does **not** ship live vendor portals, official vendor evaluation decisions, legal advice, live LLM calls, e-procurement submission portals, award decisions, or procurement system-of-record integrations.
+
+<a id="what-civicprocure-does"></a>
+
+## What Townlight Procurement Does
 
 - Draft sample RFP outlines and recommend a staff owner.
 - Scaffold neutral proposal comparison rows for staff review.
@@ -13,11 +17,13 @@ Current state: **v0.2.0 procurement support and staff review queue runtime**. Th
 - Produce award-packet checklists for procurement records.
 - Persist RFP drafts and award-packet workpapers when `CIVICPROCURE_WORKPAPER_DB_URL` is configured.
 - Route procurement review work through staff-only queue endpoints protected by `CIVICPROCURE_STAFF_API_KEY`.
-- Carry CivicClerk, CivicContracts, and solicitation context IDs into review-required packets without calling those systems live.
+- Carry Townlight Meetings, Townlight Contracts, and solicitation context IDs into review-required packets without calling those systems live.
 - Validate adversarial local integration mocks for spoofed roles, official evaluation attempts, award-decision attempts, submission attempts, legal-advice claims, stale context, and live vendor-portal claims.
 - Demonstrate a public procurement-support UI at `/civicprocure`.
 
-## What CivicProcure Does Not Do
+<a id="what-civicprocure-does-not-do"></a>
+
+## What Townlight Procurement Does Not Do
 
 - It does not evaluate vendors.
 - It does not award contracts or make award decisions.
@@ -26,9 +32,11 @@ Current state: **v0.2.0 procurement support and staff review queue runtime**. Th
 - It does not call live LLMs or live vendor portals in this recovery release.
 - It does not replace a procurement system of record.
 
-## CivicCore Dependency
+<a id="civiccore-dependency"></a>
 
-CivicProcure installs against the published CivicCore v1.0.0 release wheel:
+## Townlight Core Dependency
+
+Townlight Procurement installs against the published Townlight Core v1.0.0 release wheel:
 
 ```bash
 python -m pip install https://github.com/CivicSuite/civiccore/releases/download/v1.1.0/civiccore-1.1.0-py3-none-any.whl
@@ -37,7 +45,7 @@ python -m pip install https://github.com/CivicSuite/civiccore/releases/download/
 ## API Surface
 
 - `GET /` returns the shipped/planned boundary.
-- `GET /health` returns package and CivicCore versions.
+- `GET /health` returns package and Townlight Core versions.
 - `GET /civicprocure` returns the accessible public sample UI.
 - `POST /api/v1/civicprocure/rfps/draft` returns sample RFP drafting and a `staff_review_id` when persistence is configured.
 - `GET /api/v1/civicprocure/rfps/draft/{draft_id}` retrieves a persisted RFP draft when workpaper persistence is configured.
@@ -67,7 +75,7 @@ Set `CIVICPROCURE_STAFF_API_KEY` before using staff-only review routes:
 export CIVICPROCURE_STAFF_API_KEY="replace-with-city-secret"
 ```
 
-Staff routes require `X-CivicProcure-Role: staff` and `X-CivicProcure-Staff-Key` matching the configured key. CivicProcure uses CivicCore `staff_key_gate` for timing-safe key comparison. Without persistence, CivicProcure remains deterministic and stateless. Retrieval and staff-only endpoints return actionable `503` responses that name the required configuration.
+Staff routes require `X-CivicProcure-Role: staff` and `X-CivicProcure-Staff-Key` matching the configured key. Townlight Procurement uses Townlight Core `staff_key_gate` for timing-safe key comparison. Without persistence, Townlight Procurement remains deterministic and stateless. Retrieval and staff-only endpoints return actionable `503` responses that name the required configuration.
 
 ## Local Development
 
