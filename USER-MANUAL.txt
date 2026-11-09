@@ -26,3 +26,9 @@ Architecture
 ------------
 
 Townlight Procurement depends on Townlight Core. Townlight Core does not depend on Townlight Procurement. Townlight Procurement v0.3.0 uses deterministic sample procurement data plus optional staff-gated persistence, review-required context packets for Townlight Meetings/Contracts references, staff review queue records, and adversarial local mocks for integration-depth validation.
+
+In the Windows suite
+
+Draft RFPs, compare proposals, and record an existing award decision with a linked contract draft.
+Staff operating guide: https://townlight.github.io/manuals/windows-staff-workflows.html#procurement
+Download: https://github.com/townlight/townlight/releases/tag/townlight-windows-v1.8.0.1

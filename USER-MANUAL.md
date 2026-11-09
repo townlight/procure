@@ -6,6 +6,10 @@
 
 Townlight Procurement helps city staff keep solicitation drafts, proposal notes, exception flags, scoring summaries, staff review queues, board memo inputs, Townlight Meetings/Contracts context references, and award-packet records organized. It can draft an RFP outline, scaffold proposal comparison rows, flag common exception language, build a scoring summary, and assemble an award-packet checklist.
 
+## In the Windows suite
+
+Draft RFPs, compare proposals, and record an existing award decision with a linked contract draft. Install the [signed Townlight Windows beta 1.8.0.1](https://github.com/townlight/townlight/releases/tag/townlight-windows-v1.8.0.1) and select the full profile. See the [staff operating guide](https://townlight.github.io/manuals/windows-staff-workflows.html#procurement). The package examples below describe the standalone development interface.
+
 Current state: 0.3.0 procurement support and staff review queue runtime. Townlight Procurement can optionally save generated RFP drafts, award-packet checklists, and staff review queue records when IT configures a workpaper database. Staff-only review routes also require `TOWNLIGHT_PROCUREMENT_STAFF_API_KEY`. Townlight Procurement does not provide official vendor evaluation decisions, legal advice, live vendor portals, live LLM calls, e-procurement submission portals, award decisions, or procurement system-of-record updates. Staff own every decision.
 
 ## For IT and Technical Staff
