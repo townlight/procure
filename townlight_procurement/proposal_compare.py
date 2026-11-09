@@ -1,10 +1,10 @@
-"""Proposal comparison helpers for Townlight Procurement v0.2.0."""
+"""Proposal comparison helpers for Townlight Procurement v0.3.0."""
 
 from __future__ import annotations
 
 from dataclasses import dataclass
 
-from civicprocure.rfp_draft import DISCLAIMER
+from townlight_procurement.rfp_draft import DISCLAIMER
 
 
 @dataclass(frozen=True)

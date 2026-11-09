@@ -4,15 +4,15 @@ from pathlib import Path
 
 from fastapi.testclient import TestClient
 
-from civicprocure.main import app, _dispose_workpaper_repository
-from civicprocure.persistence import ProcureWorkpaperRepository
+from townlight_procurement.main import app, _dispose_workpaper_repository
+from townlight_procurement.persistence import ProcureWorkpaperRepository
 
 
 client = TestClient(app)
 
 
 def test_repository_persists_rfp_and_award_packet(tmp_path: Path) -> None:
-    db_path = tmp_path / "civicprocure.db"
+    db_path = tmp_path / "townlight_procurement.db"
     repo = ProcureWorkpaperRepository(db_url=f"sqlite+pysqlite:///{db_path.as_posix()}")
     rfp = repo.create_rfp_draft(
         procurement_title="Bridge design RFP",
@@ -36,27 +36,27 @@ def test_repository_persists_rfp_and_award_packet(tmp_path: Path) -> None:
 
 
 def test_procure_persistence_api_round_trip(monkeypatch, tmp_path: Path) -> None:
-    db_path = tmp_path / "civicprocure-api.db"
+    db_path = tmp_path / "townlight_procurement-api.db"
     monkeypatch.setenv(
-        "CIVICPROCURE_WORKPAPER_DB_URL", f"sqlite+pysqlite:///{db_path.as_posix()}"
+        "TOWNLIGHT_PROCUREMENT_WORKPAPER_DB_URL", f"sqlite+pysqlite:///{db_path.as_posix()}"
     )
     _dispose_workpaper_repository()
     rfp = client.post(
-        "/api/v1/civicprocure/rfps/draft",
+        "/api/v1/townlight_procurement/rfps/draft",
         json={
             "procurement_title": "Bridge design RFP",
             "procurement_type": "professional services",
             "city_need": "Bridge inspection and design support.",
         },
     )
-    fetched_rfp = client.get(f"/api/v1/civicprocure/rfps/draft/{rfp.json()['draft_id']}")
+    fetched_rfp = client.get(f"/api/v1/townlight_procurement/rfps/draft/{rfp.json()['draft_id']}")
     packet = client.post(
-        "/api/v1/civicprocure/award-packet",
+        "/api/v1/townlight_procurement/award-packet",
         json={"title": "Bridge design award", "solicitation_id": "rfp-2026-001"},
     )
-    fetched_packet = client.get(f"/api/v1/civicprocure/award-packet/{packet.json()['packet_id']}")
+    fetched_packet = client.get(f"/api/v1/townlight_procurement/award-packet/{packet.json()['packet_id']}")
     _dispose_workpaper_repository()
-    monkeypatch.delenv("CIVICPROCURE_WORKPAPER_DB_URL")
+    monkeypatch.delenv("TOWNLIGHT_PROCUREMENT_WORKPAPER_DB_URL")
 
     assert fetched_rfp.status_code == 200
     assert fetched_rfp.json()["recommended_owner"] == "Department lead + Legal + Purchasing"
@@ -66,16 +66,16 @@ def test_procure_persistence_api_round_trip(monkeypatch, tmp_path: Path) -> None
 
 
 def test_rfp_and_award_persistence_create_staff_review_queue(monkeypatch, tmp_path: Path) -> None:
-    db_path = tmp_path / "civicprocure-staff-review.db"
+    db_path = tmp_path / "townlight_procurement-staff-review.db"
     monkeypatch.setenv(
-        "CIVICPROCURE_WORKPAPER_DB_URL", f"sqlite+pysqlite:///{db_path.as_posix()}"
+        "TOWNLIGHT_PROCUREMENT_WORKPAPER_DB_URL", f"sqlite+pysqlite:///{db_path.as_posix()}"
     )
-    monkeypatch.setenv("CIVICPROCURE_STAFF_API_KEY", "test-staff-key")
+    monkeypatch.setenv("TOWNLIGHT_PROCUREMENT_STAFF_API_KEY", "test-staff-key")
     _dispose_workpaper_repository()
 
-    headers = {"X-CivicProcure-Role": "staff", "X-CivicProcure-Staff-Key": "test-staff-key"}
+    headers = {"X-Townlight-Procurement-Role": "staff", "X-Townlight-Procurement-Staff-Key": "test-staff-key"}
     rfp = client.post(
-        "/api/v1/civicprocure/rfps/draft",
+        "/api/v1/townlight_procurement/rfps/draft",
         json={
             "procurement_title": "Bridge design RFP",
             "procurement_type": "professional services",
@@ -83,15 +83,15 @@ def test_rfp_and_award_persistence_create_staff_review_queue(monkeypatch, tmp_pa
         },
     )
     packet = client.post(
-        "/api/v1/civicprocure/award-packet",
+        "/api/v1/townlight_procurement/award-packet",
         json={"title": "Bridge design award", "solicitation_id": "rfp-2026-001"},
     )
-    queue_response = client.get("/api/v1/civicprocure/staff/reviews", headers=headers)
-    summary_response = client.get("/api/v1/civicprocure/staff/reviews/summary", headers=headers)
+    queue_response = client.get("/api/v1/townlight_procurement/staff/reviews", headers=headers)
+    summary_response = client.get("/api/v1/townlight_procurement/staff/reviews/summary", headers=headers)
 
     _dispose_workpaper_repository()
-    monkeypatch.delenv("CIVICPROCURE_WORKPAPER_DB_URL")
-    monkeypatch.delenv("CIVICPROCURE_STAFF_API_KEY")
+    monkeypatch.delenv("TOWNLIGHT_PROCUREMENT_WORKPAPER_DB_URL")
+    monkeypatch.delenv("TOWNLIGHT_PROCUREMENT_STAFF_API_KEY")
 
     assert rfp.status_code == 200
     assert rfp.json()["staff_review_id"]
@@ -110,16 +110,16 @@ def test_rfp_and_award_persistence_create_staff_review_queue(monkeypatch, tmp_pa
 
 
 def test_staff_review_queue_lifecycle_is_staff_gated_and_persistent(monkeypatch, tmp_path: Path) -> None:
-    db_path = tmp_path / "civicprocure-staff-review-lifecycle.db"
+    db_path = tmp_path / "townlight_procurement-staff-review-lifecycle.db"
     monkeypatch.setenv(
-        "CIVICPROCURE_WORKPAPER_DB_URL", f"sqlite+pysqlite:///{db_path.as_posix()}"
+        "TOWNLIGHT_PROCUREMENT_WORKPAPER_DB_URL", f"sqlite+pysqlite:///{db_path.as_posix()}"
     )
-    monkeypatch.setenv("CIVICPROCURE_STAFF_API_KEY", "test-staff-key")
+    monkeypatch.setenv("TOWNLIGHT_PROCUREMENT_STAFF_API_KEY", "test-staff-key")
     _dispose_workpaper_repository()
 
-    headers = {"X-CivicProcure-Role": "staff", "X-CivicProcure-Staff-Key": "test-staff-key"}
+    headers = {"X-Townlight-Procurement-Role": "staff", "X-Townlight-Procurement-Staff-Key": "test-staff-key"}
     blocked = client.post(
-        "/api/v1/civicprocure/staff/reviews",
+        "/api/v1/townlight_procurement/staff/reviews",
         json={
             "solicitation_id": "rfp-2026-002",
             "procurement_title": "Street sweeper RFP",
@@ -127,7 +127,7 @@ def test_staff_review_queue_lifecycle_is_staff_gated_and_persistent(monkeypatch,
         },
     )
     created = client.post(
-        "/api/v1/civicprocure/staff/reviews",
+        "/api/v1/townlight_procurement/staff/reviews",
         headers=headers,
         json={
             "solicitation_id": "rfp-2026-002",
@@ -137,25 +137,25 @@ def test_staff_review_queue_lifecycle_is_staff_gated_and_persistent(monkeypatch,
     )
     review_id = created.json()["review_id"]
     invalid_update = client.patch(
-        f"/api/v1/civicprocure/staff/reviews/{review_id}",
+        f"/api/v1/townlight_procurement/staff/reviews/{review_id}",
         headers=headers,
         json={"status": "resolved"},
     )
     resolved = client.patch(
-        f"/api/v1/civicprocure/staff/reviews/{review_id}",
+        f"/api/v1/townlight_procurement/staff/reviews/{review_id}",
         headers=headers,
         json={"status": "resolved", "assigned_to": "purchasing", "resolution": "Reviewed."},
     )
 
     _dispose_workpaper_repository()
-    reloaded = client.get("/api/v1/civicprocure/staff/reviews?status=resolved", headers=headers)
+    reloaded = client.get("/api/v1/townlight_procurement/staff/reviews?status=resolved", headers=headers)
 
     _dispose_workpaper_repository()
-    monkeypatch.delenv("CIVICPROCURE_WORKPAPER_DB_URL")
-    monkeypatch.delenv("CIVICPROCURE_STAFF_API_KEY")
+    monkeypatch.delenv("TOWNLIGHT_PROCUREMENT_WORKPAPER_DB_URL")
+    monkeypatch.delenv("TOWNLIGHT_PROCUREMENT_STAFF_API_KEY")
 
     assert blocked.status_code == 403
-    assert "X-CivicProcure-Role" in blocked.json()["detail"]["fix"]
+    assert "X-Townlight-Procurement-Role" in blocked.json()["detail"]["fix"]
     assert created.status_code == 200
     assert created.json()["status"] == "open"
     assert invalid_update.status_code == 422
@@ -168,39 +168,39 @@ def test_staff_review_queue_lifecycle_is_staff_gated_and_persistent(monkeypatch,
 
 
 def test_staff_review_queue_requires_persistence_configuration(monkeypatch) -> None:
-    monkeypatch.delenv("CIVICPROCURE_WORKPAPER_DB_URL", raising=False)
-    monkeypatch.setenv("CIVICPROCURE_STAFF_API_KEY", "test-staff-key")
+    monkeypatch.delenv("TOWNLIGHT_PROCUREMENT_WORKPAPER_DB_URL", raising=False)
+    monkeypatch.setenv("TOWNLIGHT_PROCUREMENT_STAFF_API_KEY", "test-staff-key")
     _dispose_workpaper_repository()
 
     response = client.get(
-        "/api/v1/civicprocure/staff/reviews",
-        headers={"X-CivicProcure-Role": "staff", "X-CivicProcure-Staff-Key": "test-staff-key"},
+        "/api/v1/townlight_procurement/staff/reviews",
+        headers={"X-Townlight-Procurement-Role": "staff", "X-Townlight-Procurement-Staff-Key": "test-staff-key"},
     )
 
-    monkeypatch.delenv("CIVICPROCURE_STAFF_API_KEY")
+    monkeypatch.delenv("TOWNLIGHT_PROCUREMENT_STAFF_API_KEY")
 
     assert response.status_code == 503
-    assert "Set CIVICPROCURE_WORKPAPER_DB_URL" in response.json()["detail"]["fix"]
+    assert "Set TOWNLIGHT_PROCUREMENT_WORKPAPER_DB_URL" in response.json()["detail"]["fix"]
 
 
 def test_get_rfp_without_persistence_returns_actionable_503(monkeypatch) -> None:
-    monkeypatch.delenv("CIVICPROCURE_WORKPAPER_DB_URL", raising=False)
+    monkeypatch.delenv("TOWNLIGHT_PROCUREMENT_WORKPAPER_DB_URL", raising=False)
     _dispose_workpaper_repository()
-    response = client.get("/api/v1/civicprocure/rfps/draft/example")
+    response = client.get("/api/v1/townlight_procurement/rfps/draft/example")
     assert response.status_code == 503
-    assert "Set CIVICPROCURE_WORKPAPER_DB_URL" in response.json()["detail"]["fix"]
+    assert "Set TOWNLIGHT_PROCUREMENT_WORKPAPER_DB_URL" in response.json()["detail"]["fix"]
 
 
 def test_get_award_packet_missing_id_returns_actionable_404(monkeypatch, tmp_path: Path) -> None:
-    db_path = tmp_path / "civicprocure-missing.db"
+    db_path = tmp_path / "townlight_procurement-missing.db"
     monkeypatch.setenv(
-        "CIVICPROCURE_WORKPAPER_DB_URL", f"sqlite+pysqlite:///{db_path.as_posix()}"
+        "TOWNLIGHT_PROCUREMENT_WORKPAPER_DB_URL", f"sqlite+pysqlite:///{db_path.as_posix()}"
     )
     _dispose_workpaper_repository()
-    response = client.get("/api/v1/civicprocure/award-packet/missing")
+    response = client.get("/api/v1/townlight_procurement/award-packet/missing")
     _dispose_workpaper_repository()
-    monkeypatch.delenv("CIVICPROCURE_WORKPAPER_DB_URL")
+    monkeypatch.delenv("TOWNLIGHT_PROCUREMENT_WORKPAPER_DB_URL")
 
     assert response.status_code == 404
-    assert "POST /api/v1/civicprocure/award-packet" in response.json()["detail"]["fix"]
+    assert "POST /api/v1/townlight_procurement/award-packet" in response.json()["detail"]["fix"]
     db_path.unlink()

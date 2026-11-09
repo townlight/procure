@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.3.0
+
+- Renamed the distribution to `townlight-procurement` and the import package to `townlight_procurement`.
+- Aligned with the Townlight Core version used by the Windows suite.
+
+
 ## [0.2.0] - 2026-05-11
 
 ### Changed

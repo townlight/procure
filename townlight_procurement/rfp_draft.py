@@ -1,4 +1,4 @@
-"""Deterministic RFP drafting helpers for Townlight Procurement v0.2.0."""
+"""Deterministic RFP drafting helpers for Townlight Procurement v0.3.0."""
 
 from __future__ import annotations
 

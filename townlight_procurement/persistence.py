@@ -7,8 +7,8 @@ from uuid import uuid4
 import sqlalchemy as sa
 from sqlalchemy import Engine, create_engine
 
-from civicprocure.award_packet import build_award_packet_checklist
-from civicprocure.rfp_draft import draft_rfp_outline
+from townlight_procurement.award_packet import build_award_packet_checklist
+from townlight_procurement.rfp_draft import draft_rfp_outline
 
 
 metadata = sa.MetaData()
@@ -23,7 +23,7 @@ rfp_draft_records = sa.Table(
     sa.Column("sections", sa.JSON(), nullable=False),
     sa.Column("disclaimer", sa.Text(), nullable=False),
     sa.Column("created_at", sa.DateTime(timezone=True), nullable=False),
-    schema="civicprocure",
+    schema="townlight_procurement",
 )
 
 award_packet_records = sa.Table(
@@ -36,7 +36,7 @@ award_packet_records = sa.Table(
     sa.Column("checklist", sa.JSON(), nullable=False),
     sa.Column("retention_note", sa.Text(), nullable=False),
     sa.Column("created_at", sa.DateTime(timezone=True), nullable=False),
-    schema="civicprocure",
+    schema="townlight_procurement",
 )
 
 staff_review_queue_records = sa.Table(
@@ -53,7 +53,7 @@ staff_review_queue_records = sa.Table(
     sa.Column("created_at", sa.DateTime(timezone=True), nullable=False),
     sa.Column("updated_at", sa.DateTime(timezone=True), nullable=False),
     sa.Column("visibility", sa.String(120), nullable=False),
-    schema="civicprocure",
+    schema="townlight_procurement",
 )
 
 OPEN_STAFF_REVIEW_STATUSES = {"open", "in_review"}
@@ -111,11 +111,14 @@ class ProcureWorkpaperRepository:
     def __init__(self, *, db_url: str | None = None, engine: Engine | None = None) -> None:
         base_engine = engine or create_engine(db_url or "sqlite+pysqlite:///:memory:", future=True)
         if base_engine.dialect.name == "sqlite":
-            self.engine = base_engine.execution_options(schema_translate_map={"civicprocure": None})
+            self.engine = base_engine.execution_options(schema_translate_map={"townlight_procurement": None})
         else:
             self.engine = base_engine
             with self.engine.begin() as connection:
-                connection.execute(sa.text("CREATE SCHEMA IF NOT EXISTS civicprocure"))
+                schemas = set(sa.inspect(connection).get_schema_names())
+                if "civicprocure" in schemas:
+                    raise RuntimeError("Migrate the legacy PostgreSQL schema before opening townlight_procurement.")
+                connection.execute(sa.text("CREATE SCHEMA IF NOT EXISTS townlight_procurement"))
         metadata.create_all(self.engine)
 
     def create_rfp_draft(

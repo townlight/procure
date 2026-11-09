@@ -1,11 +1,11 @@
 from fastapi.testclient import TestClient
 
-from civicprocure.award_packet import build_award_packet_checklist
-from civicprocure.exception_extract import extract_proposal_exceptions
-from civicprocure.main import app
-from civicprocure.proposal_compare import compare_proposals
-from civicprocure.rfp_draft import draft_rfp_outline
-from civicprocure.scoring_summary import build_scoring_summary
+from townlight_procurement.award_packet import build_award_packet_checklist
+from townlight_procurement.exception_extract import extract_proposal_exceptions
+from townlight_procurement.main import app
+from townlight_procurement.proposal_compare import compare_proposals
+from townlight_procurement.rfp_draft import draft_rfp_outline
+from townlight_procurement.scoring_summary import build_scoring_summary
 
 
 client = TestClient(app)
@@ -59,7 +59,7 @@ def test_award_packet_preserves_procurement_records_context() -> None:
 
 def test_procurement_support_apis_success_shape() -> None:
     rfp = client.post(
-        "/api/v1/civicprocure/rfps/draft",
+        "/api/v1/townlight_procurement/rfps/draft",
         json={
             "procurement_title": "Bridge design RFP",
             "procurement_type": "professional services",
@@ -67,25 +67,25 @@ def test_procurement_support_apis_success_shape() -> None:
         },
     )
     comparison = client.post(
-        "/api/v1/civicprocure/proposals/compare",
+        "/api/v1/townlight_procurement/proposals/compare",
         json={
             "solicitation_title": "Bridge design RFP",
             "proposal_summaries": ["Vendor A: responsive", "Vendor B: exception noted"],
         },
     )
     exceptions = client.post(
-        "/api/v1/civicprocure/proposals/exceptions",
+        "/api/v1/townlight_procurement/proposals/exceptions",
         json={
             "vendor_name": "Acme Consulting",
             "proposal_text": "Proposal includes an indemnification exception.",
         },
     )
     scoring = client.post(
-        "/api/v1/civicprocure/scoring/summary",
+        "/api/v1/townlight_procurement/scoring/summary",
         json={"solicitation_title": "Bridge design RFP", "criteria": ["Responsiveness"]},
     )
     packet = client.post(
-        "/api/v1/civicprocure/award-packet",
+        "/api/v1/townlight_procurement/award-packet",
         json={"title": "Bridge design award", "solicitation_id": "rfp-2026-001"},
     )
     assert rfp.status_code == 200
@@ -101,12 +101,12 @@ def test_procurement_support_apis_success_shape() -> None:
 
 
 def test_public_ui_route_is_accessible_and_honest() -> None:
-    response = client.get("/civicprocure")
+    response = client.get("/townlight_procurement")
     assert response.status_code == 200
     assert "text/html" in response.headers["content-type"]
     text = response.text
     assert '<a class="skip-link" href="#main">Skip to main content</a>' in text
     assert '<main id="main" tabindex="-1">' in text
-    assert "v0.2.0 procurement support + staff review queues" in text
+    assert "v0.3.0 procurement support + staff review queues" in text
     assert "does not evaluate vendors" in text
     assert "procurement system of record" in text

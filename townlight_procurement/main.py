@@ -2,21 +2,21 @@
 
 import os
 
-from civiccore import __version__ as CIVICCORE_VERSION
-from civiccore.auth import staff_key_gate
+from townlight_core import __version__ as TOWNLIGHT_CORE_VERSION
+from townlight_core.auth import staff_key_gate
 from fastapi import Depends, FastAPI, HTTPException
 from fastapi.responses import HTMLResponse
 from pydantic import BaseModel
 
-from civicprocure import __version__
-from civicprocure.award_packet import build_award_packet_checklist
-from civicprocure.exception_extract import extract_proposal_exceptions
-from civicprocure.integration_mocks import validate_procurement_context_mocks
-from civicprocure.proposal_compare import compare_proposals
-from civicprocure.public_ui import render_public_lookup_page
-from civicprocure.rfp_draft import draft_rfp_outline
-from civicprocure.scoring_summary import build_scoring_summary
-from civicprocure.persistence import (
+from townlight_procurement import __version__
+from townlight_procurement.award_packet import build_award_packet_checklist
+from townlight_procurement.exception_extract import extract_proposal_exceptions
+from townlight_procurement.integration_mocks import validate_procurement_context_mocks
+from townlight_procurement.proposal_compare import compare_proposals
+from townlight_procurement.public_ui import render_public_lookup_page
+from townlight_procurement.rfp_draft import draft_rfp_outline
+from townlight_procurement.scoring_summary import build_scoring_summary
+from townlight_procurement.persistence import (
     ProcureWorkpaperRepository,
     StaffReviewQueueItem,
     StaffReviewSummary,
@@ -33,7 +33,7 @@ app = FastAPI(
 
 _workpaper_repository: ProcureWorkpaperRepository | None = None
 _workpaper_db_url: str | None = None
-_require_staff_key = staff_key_gate("CIVICPROCURE_STAFF_API_KEY", "X-CivicProcure-Staff-Key")
+_require_staff_key = staff_key_gate("TOWNLIGHT_PROCUREMENT_STAFF_API_KEY", "X-Townlight-Procurement-Staff-Key")
 
 
 class RfpDraftRequest(BaseModel):
@@ -103,19 +103,19 @@ def root() -> dict[str, str]:
     """Return current product state without overstating unshipped behavior."""
 
     return {
-        "name": "CivicProcure",
+        "name": "Townlight Procurement",
         "version": __version__,
         "status": "procurement support foundation",
         "message": (
             "Townlight Procurement package, API foundation, sample RFP drafting, proposal comparison, "
             "exception extraction helper, scoring summary helper, award-packet checklist, "
             "optional database-backed RFP/award workpapers, staff review queues, review-required "
-            "CivicClerk/CivicContracts context packets, adversarial local integration mocks, and public UI foundation are online; "
+            "Townlight Meetings/Contracts context packets, adversarial local integration mocks, and public UI foundation are online; "
             "live vendor portals, official vendor evaluation decisions, "
             "legal advice, live LLM calls, e-procurement submission portals, award decisions, and procurement system-of-record integrations "
             "are not implemented."
         ),
-        "next_step": "Configure CIVICPROCURE_WORKPAPER_DB_URL and CIVICPROCURE_STAFF_API_KEY before using staff queues.",
+        "next_step": "Configure TOWNLIGHT_PROCUREMENT_WORKPAPER_DB_URL and TOWNLIGHT_PROCUREMENT_STAFF_API_KEY before using staff queues.",
     }
 
 
@@ -125,20 +125,20 @@ def health() -> dict[str, str]:
 
     return {
         "status": "ok",
-        "service": "civicprocure",
+        "service": "townlight_procurement",
         "version": __version__,
-        "civiccore_version": CIVICCORE_VERSION,
+        "townlight_core_version": TOWNLIGHT_CORE_VERSION,
     }
 
 
-@app.get("/civicprocure", response_class=HTMLResponse)
-def public_civicprocure_page() -> str:
+@app.get("/townlight_procurement", response_class=HTMLResponse)
+def public_townlight_procurement_page() -> str:
     """Return the public sample procurement support UI."""
 
     return render_public_lookup_page()
 
 
-@app.post("/api/v1/civicprocure/rfps/draft")
+@app.post("/api/v1/townlight_procurement/rfps/draft")
 def rfp_draft(request: RfpDraftRequest) -> dict[str, object]:
     if _workpaper_database_url() is not None:
         stored = _get_workpaper_repository().create_rfp_draft(
@@ -164,14 +164,14 @@ def rfp_draft(request: RfpDraftRequest) -> dict[str, object]:
     return payload
 
 
-@app.get("/api/v1/civicprocure/rfps/draft/{draft_id}")
+@app.get("/api/v1/townlight_procurement/rfps/draft/{draft_id}")
 def get_rfp_draft(draft_id: str) -> dict[str, object]:
     if _workpaper_database_url() is None:
         raise HTTPException(
             status_code=503,
             detail={
                 "message": "Townlight Procurement workpaper persistence is not configured.",
-                "fix": "Set CIVICPROCURE_WORKPAPER_DB_URL to retrieve persisted RFP drafts.",
+                "fix": "Set TOWNLIGHT_PROCUREMENT_WORKPAPER_DB_URL to retrieve persisted RFP drafts.",
             },
         )
     stored = _get_workpaper_repository().get_rfp_draft(draft_id)
@@ -180,13 +180,13 @@ def get_rfp_draft(draft_id: str) -> dict[str, object]:
             status_code=404,
             detail={
                 "message": "RFP draft record not found.",
-                "fix": "Use a draft_id returned by POST /api/v1/civicprocure/rfps/draft.",
+                "fix": "Use a draft_id returned by POST /api/v1/townlight_procurement/rfps/draft.",
             },
         )
     return _stored_rfp_response(stored)
 
 
-@app.post("/api/v1/civicprocure/proposals/compare")
+@app.post("/api/v1/townlight_procurement/proposals/compare")
 def proposal_compare(request: ProposalCompareRequest) -> dict[str, object]:
     result = compare_proposals(
         solicitation_title=request.solicitation_title,
@@ -195,7 +195,7 @@ def proposal_compare(request: ProposalCompareRequest) -> dict[str, object]:
     return result.__dict__
 
 
-@app.post("/api/v1/civicprocure/proposals/exceptions")
+@app.post("/api/v1/townlight_procurement/proposals/exceptions")
 def proposal_exceptions(request: ExceptionExtractRequest) -> dict[str, object]:
     result = extract_proposal_exceptions(
         vendor_name=request.vendor_name,
@@ -204,7 +204,7 @@ def proposal_exceptions(request: ExceptionExtractRequest) -> dict[str, object]:
     return result.__dict__
 
 
-@app.post("/api/v1/civicprocure/scoring/summary")
+@app.post("/api/v1/townlight_procurement/scoring/summary")
 def scoring_summary(request: ScoringSummaryRequest) -> dict[str, object]:
     result = build_scoring_summary(
         solicitation_title=request.solicitation_title,
@@ -213,7 +213,7 @@ def scoring_summary(request: ScoringSummaryRequest) -> dict[str, object]:
     return result.__dict__
 
 
-@app.post("/api/v1/civicprocure/award-packet")
+@app.post("/api/v1/townlight_procurement/award-packet")
 def award_packet(request: AwardPacketRequest) -> dict[str, object]:
     if _workpaper_database_url() is not None:
         stored = _get_workpaper_repository().create_award_packet(
@@ -239,14 +239,14 @@ def award_packet(request: AwardPacketRequest) -> dict[str, object]:
     return payload
 
 
-@app.get("/api/v1/civicprocure/award-packet/{packet_id}")
+@app.get("/api/v1/townlight_procurement/award-packet/{packet_id}")
 def get_award_packet(packet_id: str) -> dict[str, object]:
     if _workpaper_database_url() is None:
         raise HTTPException(
             status_code=503,
             detail={
                 "message": "Townlight Procurement workpaper persistence is not configured.",
-                "fix": "Set CIVICPROCURE_WORKPAPER_DB_URL to retrieve persisted award-packet records.",
+                "fix": "Set TOWNLIGHT_PROCUREMENT_WORKPAPER_DB_URL to retrieve persisted award-packet records.",
             },
         )
     stored = _get_workpaper_repository().get_award_packet(packet_id)
@@ -255,13 +255,13 @@ def get_award_packet(packet_id: str) -> dict[str, object]:
             status_code=404,
             detail={
                 "message": "Award-packet record not found.",
-                "fix": "Use a packet_id returned by POST /api/v1/civicprocure/award-packet.",
+                "fix": "Use a packet_id returned by POST /api/v1/townlight_procurement/award-packet.",
             },
         )
     return _stored_award_packet_response(stored)
 
 
-@app.post("/api/v1/civicprocure/context/procurement-review")
+@app.post("/api/v1/townlight_procurement/context/procurement-review")
 def procurement_review_context(request: ProcurementContextRequest) -> dict[str, object]:
     rfp = draft_rfp_outline(
         procurement_title=request.procurement_title,
@@ -292,7 +292,7 @@ def procurement_review_context(request: ProcurementContextRequest) -> dict[str, 
     }
 
 
-@app.post("/api/v1/civicprocure/integrations/mock/procurement-context")
+@app.post("/api/v1/townlight_procurement/integrations/mock/procurement-context")
 def integration_mock_procurement_context(request: IntegrationMockRequest) -> dict[str, object]:
     result = validate_procurement_context_mocks(request.model_dump())
     return {
@@ -304,7 +304,7 @@ def integration_mock_procurement_context(request: IntegrationMockRequest) -> dic
     }
 
 
-@app.post("/api/v1/civicprocure/staff/reviews")
+@app.post("/api/v1/townlight_procurement/staff/reviews")
 def create_staff_review(
     request: StaffReviewCreateRequest,
     _staff_principal: object = Depends(_require_staff_key),
@@ -319,7 +319,7 @@ def create_staff_review(
     return _staff_review_payload(item)
 
 
-@app.get("/api/v1/civicprocure/staff/reviews")
+@app.get("/api/v1/townlight_procurement/staff/reviews")
 def list_staff_reviews(
     status: str | None = None,
     _staff_principal: object = Depends(_require_staff_key),
@@ -334,7 +334,7 @@ def list_staff_reviews(
     }
 
 
-@app.patch("/api/v1/civicprocure/staff/reviews/{review_id}")
+@app.patch("/api/v1/townlight_procurement/staff/reviews/{review_id}")
 def update_staff_review(
     review_id: str,
     request: StaffReviewUpdateRequest,
@@ -364,7 +364,7 @@ def update_staff_review(
     return _staff_review_payload(item)
 
 
-@app.get("/api/v1/civicprocure/staff/reviews/summary")
+@app.get("/api/v1/townlight_procurement/staff/reviews/summary")
 def staff_review_summary(
     _staff_principal: object = Depends(_require_staff_key),
 ) -> dict[str, object]:
@@ -373,14 +373,14 @@ def staff_review_summary(
 
 
 def _workpaper_database_url() -> str | None:
-    return os.environ.get("CIVICPROCURE_WORKPAPER_DB_URL")
+    return os.environ.get("TOWNLIGHT_PROCUREMENT_WORKPAPER_DB_URL")
 
 
 def _get_workpaper_repository() -> ProcureWorkpaperRepository:
     global _workpaper_db_url, _workpaper_repository
     db_url = _workpaper_database_url()
     if db_url is None:
-        raise RuntimeError("CIVICPROCURE_WORKPAPER_DB_URL is not configured.")
+        raise RuntimeError("TOWNLIGHT_PROCUREMENT_WORKPAPER_DB_URL is not configured.")
     if _workpaper_repository is None or db_url != _workpaper_db_url:
         _dispose_workpaper_repository()
         _workpaper_db_url = db_url
@@ -421,7 +421,7 @@ def _require_persistence_configured() -> None:
             status_code=503,
             detail={
                 "message": "Townlight Procurement staff review persistence is not configured.",
-                "fix": "Set CIVICPROCURE_WORKPAPER_DB_URL before using staff review queue routes.",
+                "fix": "Set TOWNLIGHT_PROCUREMENT_WORKPAPER_DB_URL before using staff review queue routes.",
             },
         )
 
