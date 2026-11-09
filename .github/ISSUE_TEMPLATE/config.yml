@@ -1,6 +1,6 @@
 blank_issues_enabled: true
 contact_links:
   - name: Security reports
-    url: https://github.com/CivicSuite/civicprocure/security/policy
+    url: https://github.com/townlight/procure/security/policy
     about: Report vulnerabilities privately.
 

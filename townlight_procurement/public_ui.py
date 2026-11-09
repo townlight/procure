@@ -1,4 +1,4 @@
-"""Static public UI shell for Townlight Procurement v0.2.0."""
+"""Static public UI shell for Townlight Procurement v0.3.0."""
 
 from __future__ import annotations
 
@@ -47,7 +47,7 @@ def render_public_lookup_page() -> str:
   <p class="eyebrow">Townlight / Townlight Procurement public sample</p>
   <h1>Turn procurement packets into reviewable public records.</h1>
   <p class="lede">Townlight Procurement demonstrates procurement support: RFP outlines, proposal comparison scaffolds, exception flags, scoring summaries, staff review queues, context packets, board memo inputs, and award-packet checklists without evaluating vendors or making award decisions.</p>
-  <p><span class="badge">v0.2.0 procurement support + staff review queues</span></p>
+  <p><span class="badge">v0.3.0 procurement support + staff review queues</span></p>
 </header>
 <main id="main" tabindex="-1">
   <section class="grid" aria-labelledby="lookup-title">

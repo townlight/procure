@@ -3,28 +3,21 @@ from pathlib import Path
 
 from fastapi.testclient import TestClient
 
-import civicprocure
-from civicprocure.main import app
+import townlight_procurement
+from townlight_procurement.main import app
 
 
 client = TestClient(app)
 ROOT = Path(__file__).resolve().parents[1]
 
 
-def test_package_version_is_100() -> None:
-    assert civicprocure.__version__ == "0.2.0"
+def test_package_version() -> None:
+    assert townlight_procurement.__version__ == "0.3.0"
 
 
-def test_pyproject_uses_published_civiccore_release_wheel() -> None:
+def test_pyproject_pins_suite_core() -> None:
     data = tomllib.loads((ROOT / "pyproject.toml").read_text(encoding="utf-8"))
-    dependencies = data["project"]["dependencies"]
-
-    assert data["tool"]["hatch"]["metadata"]["allow-direct-references"] is True
-    assert (
-        "civiccore @ https://github.com/CivicSuite/civiccore/releases/download/"
-        "v1.1.0/civiccore-1.1.0-py3-none-any.whl#sha256=3ab146f4fea2ae99640d5b1b013be1a9676de5f91b783eaeaa913043a2ae2b87"
-    ) in dependencies
-    assert "civiccore==1.0.0" not in dependencies
+    assert "townlight-core==1.3.0.dev2" in data["project"]["dependencies"]
 
 
 def test_root_endpoint_states_runtime_boundary() -> None:
@@ -32,14 +25,14 @@ def test_root_endpoint_states_runtime_boundary() -> None:
     assert response.status_code == 200
     payload = response.json()
 
-    assert payload["name"] == "CivicProcure"
-    assert payload["version"] == "0.2.0"
+    assert payload["name"] == "Townlight Procurement"
+    assert payload["version"] == "0.3.0"
     assert payload["status"] == "procurement support foundation"
     assert "staff review queues" in payload["message"]
-    assert "CivicClerk/CivicContracts context packets" in payload["message"]
+    assert "Townlight Meetings/Contracts context packets" in payload["message"]
     assert "official vendor evaluation decisions" in payload["message"]
     assert "not implemented" in payload["message"]
-    assert payload["next_step"].startswith("Configure CIVICPROCURE_WORKPAPER_DB_URL")
+    assert payload["next_step"].startswith("Configure TOWNLIGHT_PROCUREMENT_WORKPAPER_DB_URL")
 
 
 def test_health_endpoint_reports_versions() -> None:
@@ -48,9 +41,9 @@ def test_health_endpoint_reports_versions() -> None:
     payload = response.json()
 
     assert payload["status"] == "ok"
-    assert payload["service"] == "civicprocure"
-    assert payload["version"] == "0.2.0"
-    assert payload["civiccore_version"] == "1.1.0"
+    assert payload["service"] == "townlight_procurement"
+    assert payload["version"] == "0.3.0"
+    assert payload["townlight_core_version"] == "1.3.0.dev2"
 
 
 def test_release_gate_prefers_native_unix_python_before_windows_launcher() -> None:

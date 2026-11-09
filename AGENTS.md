@@ -1,4 +1,4 @@
-<a id="civicprocure-agent-contract"></a>
+<a id="townlight_procurement-agent-contract"></a>
 
 # Townlight Procurement Agent Contract
 
@@ -11,7 +11,7 @@
 ## Hard Boundaries
 
 - Townlight Procurement never evaluates vendors, awards contracts, submits procurements, provides legal advice, or updates a procurement system of record.
-- Townlight Procurement v0.2.0 must not call live LLMs or live vendor portals.
+- Townlight Procurement v0.3.0 must not call live LLMs or live vendor portals.
 - Proposal comparisons, exception flags, scoring summaries, and award packets must be marked staff-review-required where applicable.
 - Townlight Procurement depends on Townlight Core; Townlight Core must never depend on Townlight Procurement.
 - Townlight Procurement may reference Townlight Meetings, Townlight Contracts, and Townlight Records concepts only through released contracts, context IDs, or deterministic sample data in this recovery release.

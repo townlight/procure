@@ -3,8 +3,8 @@ requires = ["hatchling>=1.27.0"]
 build-backend = "hatchling.build"
 
 [project]
-name = "civicprocure"
-version = "0.2.0"
+name = "townlight-procurement"
+version = "0.3.0"
 description = "Townlight Procurement runtime foundation for procurement RFP drafting, proposal comparison, exception extraction, scoring summaries, board memo, and award-packet support."
 readme = "README.md"
 requires-python = ">=3.11"
@@ -13,14 +13,11 @@ authors = [
   { name = "CivicSuite contributors" }
 ]
 dependencies = [
-  "civiccore @ https://github.com/CivicSuite/civiccore/releases/download/v1.1.0/civiccore-1.1.0-py3-none-any.whl#sha256=3ab146f4fea2ae99640d5b1b013be1a9676de5f91b783eaeaa913043a2ae2b87",
+  "townlight-core==1.3.0.dev2",
   "fastapi>=0.115.0,<1.0.0",
   "sqlalchemy>=2.0.0,<3.0.0",
   "uvicorn[standard]>=0.30.0,<1.0.0",
 ]
-
-[tool.hatch.metadata]
-allow-direct-references = true
 
 [project.optional-dependencies]
 dev = [
@@ -35,11 +32,11 @@ dev = [
 testpaths = ["tests"]
 
 [tool.hatch.build.targets.wheel]
-packages = ["civicprocure"]
+packages = ["townlight_procurement"]
 
 [tool.hatch.build.targets.sdist]
 include = [
-  "civicprocure",
+  "townlight_procurement",
   "scripts",
   "tests",
   "README.md",

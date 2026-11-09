@@ -1,7 +1,7 @@
 from fastapi.testclient import TestClient
 
-from civicprocure.integration_mocks import validate_procurement_context_mocks
-from civicprocure.main import app
+from townlight_procurement.integration_mocks import validate_procurement_context_mocks
+from townlight_procurement.main import app
 
 
 client = TestClient(app)
@@ -31,7 +31,7 @@ def test_adversarial_mock_rejects_spoofed_award_and_missing_context() -> None:
 
 def test_integration_mock_api_accepts_complete_staff_context_for_review() -> None:
     response = client.post(
-        "/api/v1/civicprocure/integrations/mock/procurement-context",
+        "/api/v1/townlight_procurement/integrations/mock/procurement-context",
         json={
             "scenario": "complete-local-context",
             "role": "staff",
@@ -51,7 +51,7 @@ def test_integration_mock_api_accepts_complete_staff_context_for_review() -> Non
 
 def test_integration_mock_api_blocks_stale_or_partial_context() -> None:
     response = client.post(
-        "/api/v1/civicprocure/integrations/mock/procurement-context",
+        "/api/v1/townlight_procurement/integrations/mock/procurement-context",
         json={
             "scenario": "stale-procurement-context",
             "role": "service",
@@ -69,7 +69,7 @@ def test_integration_mock_api_blocks_stale_or_partial_context() -> None:
 
 def test_procurement_review_context_carries_clerk_and_contract_references() -> None:
     response = client.post(
-        "/api/v1/civicprocure/context/procurement-review",
+        "/api/v1/townlight_procurement/context/procurement-review",
         json={
             "solicitation_id": "rfp-2026-001",
             "procurement_title": "Bridge design RFP",
