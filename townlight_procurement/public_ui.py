@@ -67,7 +67,7 @@ def render_public_lookup_page() -> str:
     <article class="card large"><p class="kicker">Boundary</p><h2>No official procurement action</h2><div class="result warning"><p>Townlight Procurement does not evaluate vendors, award contracts, make award decisions, provide legal advice, call live LLMs, use live vendor portals, submit procurements, or replace the procurement system of record.</p></div></article>
   </section>
 </main>
-<footer><p>Townlight Procurement is part of the Apache 2.0 Townlight open-source municipal AI project.</p></footer>
+<footer><p>Townlight Procurement is part of the AGPL-3.0-only Townlight open-source municipal AI project.</p></footer>
 </body>
 </html>
 """
