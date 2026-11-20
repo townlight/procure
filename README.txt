@@ -90,3 +90,7 @@ Current Townlight-owned code is AGPL-3.0-only. Documentation is CC BY 4.0.
 Current source licensing
 
 Current Townlight-owned Procurement source is AGPL-3.0-only, aligned with its Townlight Core dependency. A standalone installation includes that dependency and must retain its applicable notices and source obligations; it is not an Apache-only combination. Historical Apache grants and original releases retain their terms; the prior notice is preserved in docs/history/licensing/Apache-2.0-original.txt. This source correction does not relicense third-party code or replace the released Windows 1.8.1.1 artifacts.
+
+Historical version tags
+
+The retained v1.0.0 tag is a superseded pre-recovery source identity, not the current Procurement package or a current Windows release. Its numeric ordering must not be used to choose the installed version. The current Windows bundle contains townlight-procurement 0.3.0; use the published Suite version and exact component source pins. The historical tag and original release artifacts remain unchanged. GitHub has no separate v1.0.0 release page for this repository.
