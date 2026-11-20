@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "townlight-procurement"
-version = "0.3.0"
+version = "0.3.1"
 description = "Townlight Procurement runtime foundation for procurement RFP drafting, proposal comparison, exception extraction, scoring summaries, board memo, and award-packet support."
 readme = "README.md"
 requires-python = ">=3.11"

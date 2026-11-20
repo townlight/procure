@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.3.1 - Windows maintenance
+
+Include current staff authorization and package metadata corrections in the Windows maintenance composition.
+
 ## 0.3.0
 
 - Renamed the distribution to `townlight-procurement` and the import package to `townlight_procurement`.

@@ -10,7 +10,7 @@ Windows 1.8.1.1 adds shared meeting imports for 31 source families, with 34 supp
 
 Windows 1.8.1.1 has fresh-install acceptance. An in-place upgrade to 1.8.1.1 was not exercised. The previous Windows 1.8.0.1 release tested upgrade from 1.7.2.1; that result applies to 1.8.0.1. Before an existing-city evaluation, back up city data and settings, close Townlight, keep the existing %LOCALAPPDATA%\CivicSuite profile, and use the same Windows account. Keep the prior installer and a restore path. Station continues to use its separately configured service.
 
-The accepted MSI contains Townlight Runtime 0.3.1 and Meetings 1.0.6 distributions. Its health version strings still report Runtime 0.3.0 and Meetings 1.0.5. Default-branch source corrects those display strings; the signed MSI and its exact build source remain unchanged.
+The accepted MSI contains Townlight Runtime 0.3.1 and Meetings 1.0.6 distributions. Its health version strings still report Runtime 0.3.1 and Meetings 1.0.5. Default-branch source corrects those display strings; the signed MSI and its exact build source remain unchanged.
 
 
 ## For Non-Technical Users
@@ -21,7 +21,7 @@ Townlight Procurement helps city staff keep solicitation drafts, proposal notes,
 
 Draft RFPs, compare proposals, and record an existing award decision with a linked contract draft. Install the [signed Townlight Windows beta 1.8.1.1](https://github.com/townlight/townlight/releases/tag/townlight-windows-v1.8.1.1) and select the full profile. See the [staff operating guide](https://townlight.github.io/manuals/windows-staff-workflows.html#procurement). The package examples below describe the standalone development interface.
 
-Current state: 0.3.0 procurement support and staff review queue runtime. Townlight Procurement can optionally save generated RFP drafts, award-packet checklists, and staff review queue records when IT configures a workpaper database. Staff-only review routes also require `TOWNLIGHT_PROCUREMENT_STAFF_API_KEY`. Townlight Procurement does not provide official vendor evaluation decisions, legal advice, live vendor portals, live LLM calls, e-procurement submission portals, award decisions, or procurement system-of-record updates. Staff own every decision.
+Current state: 0.3.1 procurement support and staff review queue runtime. Townlight Procurement can optionally save generated RFP drafts, award-packet checklists, and staff review queue records when IT configures a workpaper database. Staff-only review routes also require `TOWNLIGHT_PROCUREMENT_STAFF_API_KEY`. Townlight Procurement does not provide official vendor evaluation decisions, legal advice, live vendor portals, live LLM calls, e-procurement submission portals, award decisions, or procurement system-of-record updates. Staff own every decision.
 
 ## For IT and Technical Staff
 
@@ -59,7 +59,7 @@ bash scripts/verify-release.sh
 
 ```mermaid
 flowchart LR
-  Staff["Purchasing / finance / department leads"] --> Townlight Procurement["Townlight Procurement v0.3.0"]
+  Staff["Purchasing / finance / department leads"] --> Townlight Procurement["Townlight Procurement v0.3.1"]
   Townlight Procurement --> CivicCore["Townlight Core 1.3.0.dev2"]
   Townlight Procurement -. released context ID .-> CivicClerk["CivicClerk v1.0.0"]
   Townlight Procurement -. future context ID .-> CivicContracts["CivicContracts"]
@@ -68,7 +68,7 @@ flowchart LR
   Townlight Procurement --> Export["Award packet checklist"]
 ```
 
-Townlight Procurement depends on Townlight Core. Townlight Core does not depend on Townlight Procurement. Townlight Procurement v0.3.0 uses deterministic sample procurement data plus optional staff-gated persistence, review-required context packets for Townlight Meetings/Contracts references, staff review queue records, and adversarial local mocks for integration-depth validation.
+Townlight Procurement depends on Townlight Core. Townlight Core does not depend on Townlight Procurement. Townlight Procurement v0.3.1 uses deterministic sample procurement data plus optional staff-gated persistence, review-required context packets for Townlight Meetings/Contracts references, staff review queue records, and adversarial local mocks for integration-depth validation.
 
 ## Upgrading standalone PostgreSQL data
 
