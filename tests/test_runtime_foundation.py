@@ -12,7 +12,7 @@ ROOT = Path(__file__).resolve().parents[1]
 
 
 def test_package_version() -> None:
-    assert townlight_procurement.__version__ == "0.3.0"
+    assert townlight_procurement.__version__ == "0.3.1"
 
 
 def test_pyproject_pins_suite_core() -> None:
@@ -26,7 +26,7 @@ def test_root_endpoint_states_runtime_boundary() -> None:
     payload = response.json()
 
     assert payload["name"] == "Townlight Procurement"
-    assert payload["version"] == "0.3.0"
+    assert payload["version"] == "0.3.1"
     assert payload["status"] == "procurement support foundation"
     assert "staff review queues" in payload["message"]
     assert "Townlight Meetings/Contracts context packets" in payload["message"]
@@ -42,7 +42,7 @@ def test_health_endpoint_reports_versions() -> None:
 
     assert payload["status"] == "ok"
     assert payload["service"] == "townlight_procurement"
-    assert payload["version"] == "0.3.0"
+    assert payload["version"] == "0.3.1"
     assert payload["townlight_core_version"] == "1.3.0.dev2"
 
 
