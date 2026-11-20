@@ -102,4 +102,8 @@ bash scripts/verify-release.sh
 
 ## License
 
-Code is Apache License 2.0. Documentation is CC BY 4.0.
+Current Townlight-owned code is AGPL-3.0-only. Documentation is CC BY 4.0.
+
+## Current source licensing
+
+Current Townlight-owned Procurement source is AGPL-3.0-only, aligned with its Townlight Core dependency. A standalone installation includes that dependency and must retain its applicable notices and source obligations; it is not an Apache-only combination. Historical Apache grants and original releases retain their terms; the prior notice is preserved in `docs/history/licensing/Apache-2.0-original.txt`. This source correction does not relicense third-party code or replace the released Windows 1.8.1.1 artifacts.
