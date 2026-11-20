@@ -8,7 +8,7 @@ All 31 sources, formats and handoffs · Installed acceptance.
 
 Windows 1.8.1.1 has fresh-install acceptance. An in-place upgrade to 1.8.1.1 was not exercised. The previous Windows 1.8.0.1 release tested upgrade from 1.7.2.1; that result applies to 1.8.0.1. Before an existing-city evaluation, back up city data and settings, close Townlight, keep the existing %LOCALAPPDATA%profile, and use the same Windows account. Keep the prior installer and a restore path. Station continues to use its separately configured service.
 
-The accepted MSI contains Townlight Runtime 0.3.1 and Meetings 1.0.6 distributions. Its health version strings still report Runtime 0.3.0 and Meetings 1.0.5. Default-branch source corrects those display strings; the signed MSI and its exact build source remain unchanged.
+The accepted MSI contains Townlight Runtime 0.3.1 and Meetings 1.0.6 distributions. Its health version strings still report Runtime 0.3.1 and Meetings 1.0.5. Default-branch source corrects those display strings; the signed MSI and its exact build source remain unchanged.
 
 Townlight Procurement is the Townlight module for procurement RFP drafting, proposal comparison, exception extraction, scoring summaries, board memo inputs, staff review queues, review-required Townlight Meetings/Contracts context packets, adversarial local integration mocks, and award-packet checklists.
 
@@ -16,7 +16,7 @@ In the Windows suite
 
 Draft RFPs, compare proposals, and record an existing award decision with a linked contract draft. Install the signed Townlight Windows beta 1.8.1.1 and select the full profile. See the staff operating guide. The package examples below describe the standalone development interface.
 
-Current state: v0.3.0 procurement support and staff review queue runtime. This repo ships a FastAPI package aligned to the Townlight Core 1.3.0.dev2, health/root endpoints, documentation gates, deterministic and database-backed RFP drafting, award-packet workpapers, staff-only review queue workflows, review-required Townlight Meetings/Contracts procurement context packets, adversarial local integration mocks, proposal comparison scaffolds, exception extraction, scoring summary helper, award-packet checklist, and accessible public sample UI at /townlight_procurement. It does not ship live vendor portals, official vendor evaluation decisions, legal advice, live LLM calls, e-procurement submission portals, award decisions, or procurement system-of-record integrations.
+Current state: v0.3.1 procurement support and staff review queue runtime. This repo ships a FastAPI package aligned to the Townlight Core 1.3.0.dev2, health/root endpoints, documentation gates, deterministic and database-backed RFP drafting, award-packet workpapers, staff-only review queue workflows, review-required Townlight Meetings/Contracts procurement context packets, adversarial local integration mocks, proposal comparison scaffolds, exception extraction, scoring summary helper, award-packet checklist, and accessible public sample UI at /townlight_procurement. It does not ship live vendor portals, official vendor evaluation decisions, legal advice, live LLM calls, e-procurement submission portals, award decisions, or procurement system-of-record integrations.
 
 What Townlight Procurement Does
 
@@ -93,4 +93,4 @@ Current Townlight-owned Procurement source is AGPL-3.0-only, aligned with its To
 
 Historical version tags
 
-The retained v1.0.0 tag is a superseded pre-recovery source identity, not the current Procurement package or a current Windows release. Its numeric ordering must not be used to choose the installed version. The current Windows bundle contains townlight-procurement 0.3.0; use the published Suite version and exact component source pins. The historical tag and original release artifacts remain unchanged. GitHub has no separate v1.0.0 release page for this repository.
+The retained v1.0.0 tag is a superseded pre-recovery source identity, not the current Procurement package or a current Windows release. Its numeric ordering must not be used to choose the installed version. The current Windows bundle contains townlight-procurement 0.3.1; use the published Suite version and exact component source pins. The historical tag and original release artifacts remain unchanged. GitHub has no separate v1.0.0 release page for this repository.
