@@ -1,8 +1,12 @@
-## Windows 1.9.1.1 Station recorder release
+## Windows 1.9.3.2 current release
+
+Townlight for Windows 1.9.3.2 is the current signed public beta. See the [release notes](https://github.com/townlight/townlight/releases/tag/townlight-windows-v1.9.3.2) and [acceptance record](https://github.com/townlight/townlight/releases/download/townlight-windows-v1.9.3.2/ACCEPTANCE-Windows-1.9.3.2.md).
+
+For an existing city, make and verify a backup, close Townlight, run the signed Windows 1.9.3.2 MSI, then reopen Townlight under the same Windows account and existing profile. Direct upgrade is tested from 1.9.3.1; earlier paths have separate prior evidence.
+
+## Windows 1.9.1.1 historical Station recorder release
 
 Windows 1.9.1.1 improves the clerk workflows for Records, Meetings, and Code, adds Open Hall icons, and fixes the ten-second Station preview.
-
-Windows 1.9.1.1 is a signed public beta. See the acceptance summary for the verified workflows and artifact identities. Set up Station during Townlight first run. Read the acceptance summary before upgrading.
 
 [Release and downloads](https://github.com/townlight/townlight/releases/tag/townlight-windows-v1.9.1.1) · [Acceptance and limits](https://github.com/townlight/townlight/releases/download/townlight-windows-v1.9.1.1/ACCEPTANCE-Windows-1.9.1.1.md).
 
@@ -16,8 +20,6 @@ Windows 1.8.1.1 adds shared meeting imports for 31 source families, with 34 supp
 
 [All 31 sources, formats and handoffs](https://townlight.github.io/manuals/meeting-imports.html) · [Installed acceptance](https://github.com/townlight/townlight/releases/download/townlight-windows-v1.8.1.1/ACCEPTANCE-Windows-1.8.1.1.md).
 
-Windows 1.9.1.1 is a signed public beta. See the acceptance summary for the verified workflows and artifact identities. Set up Station during Townlight first run. Read the acceptance summary before upgrading.
-
 Windows 1.9.1.1 contains Station 0.4.4, Records 1.8.0.dev4, Townlight Runtime 0.3.3 and Meetings 1.0.6. The release acceptance summary identifies the verified workflows and the builds that produced the evidence.
 
 
@@ -25,7 +27,7 @@ Townlight Procurement is the Townlight module for procurement RFP drafting, prop
 
 ## In the Windows suite
 
-Draft RFPs, compare proposals, and record an existing award decision with a linked contract draft. Install the [signed Townlight Windows beta 1.8.1.1](https://github.com/townlight/townlight/releases/tag/townlight-windows-v1.8.1.1) and select the full profile. See the [staff operating guide](https://townlight.github.io/manuals/windows-staff-workflows.html#procurement). The package examples below describe the standalone development interface.
+Draft RFPs, compare proposals, and record an existing award decision with a linked contract draft. Install the [signed Townlight Windows beta 1.9.3.2](https://github.com/townlight/townlight/releases/tag/townlight-windows-v1.9.3.2) and select the full profile. See the [staff operating guide](https://townlight.github.io/manuals/windows-staff-workflows.html#procurement). The package examples below describe the standalone development interface.
 
 Current state: **v0.3.1 procurement support and staff review queue runtime**. This repo ships a FastAPI package aligned to the Townlight Core 1.3.0.dev2, health/root endpoints, documentation gates, deterministic and database-backed RFP drafting, award-packet workpapers, staff-only review queue workflows, review-required Townlight Meetings/Contracts procurement context packets, adversarial local integration mocks, proposal comparison scaffolds, exception extraction, scoring summary helper, award-packet checklist, and accessible public sample UI at `/townlight_procurement`. It does **not** ship live vendor portals, official vendor evaluation decisions, legal advice, live LLM calls, e-procurement submission portals, award decisions, or procurement system-of-record integrations.
 
