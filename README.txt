@@ -1,8 +1,8 @@
-Windows 1.9.3.2 current release
+Windows 1.10.0.1 current release
 
-Townlight for Windows 1.9.3.2 is the current signed public beta. See the release notes and acceptance record.
+Townlight for Windows 1.10.0.1 is the current signed public beta. See the release notes and acceptance record.
 
-For an existing city, make and verify a backup, close Townlight, run the signed Windows 1.9.3.2 MSI, then reopen Townlight under the same Windows account and existing profile. Direct upgrade is tested from 1.9.3.1; earlier paths have separate prior evidence.
+For an existing city, make and verify a backup, close Townlight, run the signed Windows 1.10.0.1 MSI, then reopen Townlight under the same Windows account and existing profile. Direct upgrade is tested from 1.9.3.2; earlier paths have separate prior evidence.
 
 Windows 1.9.1.1 historical Station recorder release
 
@@ -24,7 +24,7 @@ Townlight Procurement is the Townlight module for procurement RFP drafting, prop
 
 In the Windows suite
 
-Draft RFPs, compare proposals, and record an existing award decision with a linked contract draft. Install the signed Townlight Windows beta 1.9.3.2 and select the full profile. See the staff operating guide. The package examples below describe the standalone development interface.
+Draft RFPs, compare proposals, and record an existing award decision with a linked contract draft. Install the signed Townlight Windows beta 1.10.0.1 and select the full profile. See the staff operating guide. The package examples below describe the standalone development interface.
 
 Current state: v0.3.1 procurement support and staff review queue runtime. This repo ships a FastAPI package aligned to the Townlight Core 1.3.0.dev2, health/root endpoints, documentation gates, deterministic and database-backed RFP drafting, award-packet workpapers, staff-only review queue workflows, review-required Townlight Meetings/Contracts procurement context packets, adversarial local integration mocks, proposal comparison scaffolds, exception extraction, scoring summary helper, award-packet checklist, and accessible public sample UI at /townlight_procurement. It does not ship live vendor portals, official vendor evaluation decisions, legal advice, live LLM calls, e-procurement submission portals, award decisions, or procurement system-of-record integrations.
 
